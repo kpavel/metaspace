@@ -1,0 +1,15 @@
+{
+  "database_ids": [22],
+  "analysis_version": 1,
+  "isotope_generation": {
+    "adducts": ["+H", "+Na", "+K"],
+    "charge": 1,
+    "isocalc_sigma": 0.000693,
+    "instrument": "FTICR",
+    "n_peaks": 4,
+    "neutral_losses": [],
+    "chem_mods": []
+  },
+  "fdr": {"decoy_sample_size": 20},
+  "image_generation": {"ppm": 3, "n_levels": 30, "min_px": 1}
+}

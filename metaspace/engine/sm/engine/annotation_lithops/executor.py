@@ -24,10 +24,11 @@ TRet = TypeVar('TRet')
 #: manually updating their config files every time it changes. The image must be public on
 #: Docker Hub, and can be rebuilt using the scripts/Dockerfile in `engine/docker/lithops_ibm_cf`.
 #: Note: sci-test changes this constant to force local execution without docker
-RUNTIME_DOCKER_IMAGE = 'metaspace2020/metaspace-lithops:1.9.4'
+RUNTIME_DOCKER_IMAGE = 'kpavel/kp-meta-k8s-runtime3:latest'
 MEM_LIMITS = {
     'localhost': 32768,
     'ibm_cf': 4096,
+    'k8s': 4096,
     'ibm_vpc': 128 * 2 ** 30,
 }
 
@@ -158,13 +159,16 @@ class Executor:
         else:
             self.is_hybrid = True
             self.executors = {
-                'ibm_cf': lithops.ServerlessExecutor(
-                    config=lithops_config, runtime=RUNTIME_DOCKER_IMAGE
-                ),
-                'ibm_vpc': lithops.StandaloneExecutor(
-                    config=lithops_config,
-                    runtime=RUNTIME_DOCKER_IMAGE,
-                ),
+#                'ibm_cf': lithops.ServerlessExecutor(
+#                    config=lithops_config, runtime=RUNTIME_DOCKER_IMAGE
+#                ),
+                'k8s': lithops.ServerlessExecutor(
+                    config=lithops_config, runtime=lithops_config['k8s']['runtime']
+                )
+            #    'ibm_vpc': lithops.StandaloneExecutor(
+            #        config=lithops_config,
+            #        runtime=RUNTIME_DOCKER_IMAGE,
+            #    ),
             }
 
         self.storage = Storage(lithops_config)
