@@ -159,12 +159,12 @@ class Executor:
         else:
             self.is_hybrid = True
             self.executors = {
-#                'ibm_cf': lithops.ServerlessExecutor(
-#                    config=lithops_config, runtime=RUNTIME_DOCKER_IMAGE
-#                ),
-                'k8s': lithops.ServerlessExecutor(
-                    config=lithops_config, runtime=lithops_config['k8s']['runtime']
-                )
+                'ibm_cf': lithops.ServerlessExecutor(
+                    config=lithops_config, runtime=lithops_config['ibm_cf']['runtime']
+                ),
+#                'k8s': lithops.ServerlessExecutor(
+#                    config=lithops_config, runtime=lithops_config['k8s']['runtime']
+#                )
             #    'ibm_vpc': lithops.StandaloneExecutor(
             #        config=lithops_config,
             #        runtime=RUNTIME_DOCKER_IMAGE,

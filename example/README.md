@@ -49,7 +49,7 @@ pip install -e ../metaspace/engine/
             "execution_timeout": 2400
         },
         "serverless": {
-            "backend": "k8s",
+            "backend": "ibm_cf",
             "runtime_timeout": 1200,
             "runtime_memory": 2048
         },
@@ -60,7 +60,8 @@ pip install -e ../metaspace/engine/
             "endpoint": "https://eu-de.functions.cloud.ibm.com",
             "namespace": "eu-de4",
             "namespace_id": "914f55b9-56cf-4898-99e6-4fda4c82d95c",
-            "runtime_timeout": 600
+            "runtime_timeout": 600,
+            "runtime": "metaspace2020/metaspace-lithops:1.9.4"
         },
         "ibm_vpc": {
             "endpoint": "https://eu-de.iaas.cloud.ibm.com",
@@ -92,8 +93,8 @@ pip install -e ../metaspace/engine/
 python script.py
 ```
 
-## In case building custom lithops openshift runtime image, create config.yaml and run
+## In case building custom lithops openshift runtime image, create config.yaml either manually or using [lithopscloud](https://pypi.org/project/lithopscloud/) config tool and run
 ```
 cd ../metaspace/engine
-lithops runtime build -f ./docker/openshift/Dockerfile -c config.yaml -b k8s <DOCKERHUB_USER/RUNTIME_DOCKER_IMAGE>
+lithops runtime build -f ./docker/lithops_ibm_cf/Dockerfile -c config.yaml -b ibm_cf <DOCKERHUB_USER/RUNTIME_DOCKER_IMAGE>
 ```
