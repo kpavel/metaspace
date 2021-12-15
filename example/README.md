@@ -34,7 +34,8 @@ pip install -r ../metaspace/engine/requirements.txt
 pip install -e ../metaspace/engine/
 ```
 
-## Edit [conf/config.json](conf/config.json) configuration file. all the entries with \<> are mandatory and must be updated
+## Configuration
+Edit [conf/config.json](conf/config.json) configuration file. all the entries with \<> are mandatory and must be updated. Follow [Lithops](https://github.com/lithops-cloud/lithops/blob/master/config/README.md#compute-and-storage-backends) if you need to configure other storage backends, like CEPH
 ```
 {
     "lithops": {
