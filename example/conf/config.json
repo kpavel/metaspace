@@ -7,34 +7,23 @@
             "include_modules": ["engine/sm"],
             "data_cleaner": true,
             "data_limit": false,
-            "workers": 10,
+            "workers": 100,
             "execution_timeout": 2400
         },
         "serverless": {
-            "backend": "k8s",
+            "backend": "code_engine",
             "runtime_timeout": 1200,
-            "runtime_memory": 2048
+            "runtime_memory": 1024,
+	    "runtime_cpu": 250 
         },
-        "standalone": {"backend": "ibm_vpc", "soft_dismantle_timeout": 30},
         "localhost": {},
         "ibm": {"iam_api_key": "<IAM_API_KEY>"},
-        "ibm_cf": {
-            "endpoint": "https://eu-de.functions.cloud.ibm.com",
-            "namespace": "eu-de4",
-            "namespace_id": "914f55b9-56cf-4898-99e6-4fda4c82d95c",
-            "runtime_timeout": 600
-        },
-        "ibm_vpc": {
-            "endpoint": "https://eu-de.iaas.cloud.ibm.com",
-            "instance_id": "02c7_6fc1e676-f5a5-4538-91c5-ab29852a6f6e",
-            "ip_address": "161.156.169.231",
-            "ssh_key_filename": "/home/kpavel/.ssh/id_rsa"
-        },
-	"k8s": {
-	    "kubecfg_path": "<FULL_PATH_TO_KUBECONFIG_FILE>",
-	    "runtime": "kpavel/meta-openshift-runtime:latest",
-	    "docker_user": "<DOCKERHUB_USER>",
-	    "docker_password": "<DOCKERHUB_PASSWORD>"
+	"code_engine": {
+            "namespace": "<NAMESPACE>",
+            "region": "<REGION>",
+            "runtime": "kpavel/meta-ce-lithops-runtime:latest",
+	    "runtime_memory": 1024,
+	    "runtime_cpu": 0.25
 	},
         "ibm_cos": {
             "region": "us-east"

@@ -29,6 +29,7 @@ MEM_LIMITS = {
     'localhost': 32768,
     'ibm_cf': 4096,
     'k8s': 4096,
+    'code_engine': 4096,
     'ibm_vpc': 128 * 2 ** 30,
 }
 
@@ -162,8 +163,11 @@ class Executor:
 #                'ibm_cf': lithops.ServerlessExecutor(
 #                    config=lithops_config, runtime=RUNTIME_DOCKER_IMAGE
 #                ),
-                'k8s': lithops.ServerlessExecutor(
-                    config=lithops_config, runtime=lithops_config['k8s']['runtime']
+#                'k8s': lithops.ServerlessExecutor(
+#                    config=lithops_config, runtime=lithops_config['k8s']['runtime']
+#                )
+                'code_engine': lithops.ServerlessExecutor(
+                    config=lithops_config, runtime=lithops_config['code_engine']['runtime']
                 )
             #    'ibm_vpc': lithops.StandaloneExecutor(
             #        config=lithops_config,
@@ -288,6 +292,8 @@ class Executor:
                 exception = exc
         else:
             # Run in another thread so that stalls can be detected & handled
+
+#            breakpoint()
             def run():
                 nonlocal futures, return_vals, exception
                 try:
@@ -333,6 +339,20 @@ class Executor:
         assert valid_executors, f'Could not find an executor supporting {runtime_memory}MB'
         executor_type, executor = valid_executors[0]
         logger.debug(f'Selected executor {executor_type}')
+
+        if executor.config['lithops']['mode'] == 'serverless' and executor.config['serverless']["backend"] == "code_engine":
+            # in case of code engine need to have predefined cpu/memory pairs
+            ce_mem_cpu_pairs = {
+                    4096: 1,
+                    2048: 0.5,
+                    1024: 0.25,
+                    512: 0.125,
+                    256: 0.125,
+            }
+
+            logger.warning(f'Setting cpu/memory pair to {runtime_memory}/{ce_mem_cpu_pairs[runtime_memory]}')
+            
+            executor.config["code_engine"]["runtime_cpu"] = ce_mem_cpu_pairs[runtime_memory]
 
         if executor.config['lithops']['mode'] == 'standalone':
             # Set number of parallel workers based on memory requirements
