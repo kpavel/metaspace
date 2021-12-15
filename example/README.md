@@ -3,7 +3,7 @@
 
 ## clone repository
 ```
-git clone -b openshift git@github.com:kpavel/metaspace.git
+git clone -b cf git@github.com:kpavel/metaspace.git
 cd metaspace/example
 ```
 
@@ -53,7 +53,6 @@ pip install -e ../metaspace/engine/
             "runtime_timeout": 1200,
             "runtime_memory": 2048
         },
-        "standalone": {"backend": "ibm_vpc", "soft_dismantle_timeout": 30},
         "localhost": {},
         "ibm": {"iam_api_key": "<IAM_API_KEY>"},
         "ibm_cf": {
@@ -62,18 +61,6 @@ pip install -e ../metaspace/engine/
             "namespace_id": "914f55b9-56cf-4898-99e6-4fda4c82d95c",
             "runtime_timeout": 600,
             "runtime": "metaspace2020/metaspace-lithops:1.9.4"
-        },
-        "ibm_vpc": {
-            "endpoint": "https://eu-de.iaas.cloud.ibm.com",
-            "instance_id": "02c7_6fc1e676-f5a5-4538-91c5-ab29852a6f6e",
-            "ip_address": "161.156.169.231",
-            "ssh_key_filename": "/home/kpavel/.ssh/id_rsa"
-        },
-        "k8s": {
-            "kubecfg_path": "<FULL PATH TO KUBECONFIG FILE>",
-            "docker_user": "<DOCKERHUB USER>",
-            "docker_password": "<DOCKERHUB PASSWORD>",
-            "runtime": "kpavel/meta-openshift-runtime:latest" # modify in case building own runtime image
         },
         "ibm_cos": {
             "region": "us-east" # can be changed to different one
@@ -93,7 +80,7 @@ pip install -e ../metaspace/engine/
 python script.py
 ```
 
-## In case building custom lithops openshift runtime image, create config.yaml either manually or using [lithopscloud](https://pypi.org/project/lithopscloud/) config tool and run
+## In case building custom lithops cloud functions runtime image, create config.yaml either manually or using [lithopscloud](https://pypi.org/project/lithopscloud/) config tool and run
 ```
 cd ../metaspace/engine
 lithops runtime build -f ./docker/lithops_ibm_cf/Dockerfile -c config.yaml -b ibm_cf <DOCKERHUB_USER/RUNTIME_DOCKER_IMAGE>
