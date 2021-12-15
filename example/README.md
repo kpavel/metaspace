@@ -92,7 +92,7 @@ pip install -e ../metaspace/engine/
 python script.py
 ```
 
-## In case building custom lithops openshift runtime image, create config.yaml and run
+## In case building custom lithops openshift runtime image, please follow lithops readme to create (config.yaml)[https://github.com/lithops-cloud/lithops/blob/master/docs/source/compute_config/k8s_job.md] and run
 ```
 cd ../metaspace/engine
 lithops runtime build -f ./docker/openshift/Dockerfile -c config.yaml -b k8s <DOCKERHUB_USER/RUNTIME_DOCKER_IMAGE>
